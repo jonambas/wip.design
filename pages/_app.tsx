@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import Theme from '@sweatpants/theme';
 import { createGlobalStyle } from 'styled-components';
 import CartProvider from '@context/cart';
+import ToastProvider from '@context/toast';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -88,7 +89,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     >
       <GlobalStyle />
       <CartProvider>
-        <Component {...pageProps} />
+        <ToastProvider>
+          <Component {...pageProps} />
+        </ToastProvider>
       </CartProvider>
     </Theme>
   );

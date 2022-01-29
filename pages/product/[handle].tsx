@@ -8,6 +8,7 @@ import PageHeader from '@components/PageHeader';
 import Button from '@components/Button';
 import { getProduct } from '@lib/queries';
 import { useCartContext } from '@context/cart';
+import { useToastContext } from '@context/toast';
 
 type ProductPageProps = {
   shopify: { [key: string]: any };
@@ -17,9 +18,13 @@ function ProductPage(props: ProductPageProps): JSX.Element {
   const { product } = props.shopify;
   const firstVariant = product.variants.edges[0].node;
   const { addToCart, success, loading } = useCartContext();
+  const { toast } = useToastContext();
 
-  function handleAddToCart() {
-    addToCart(firstVariant.id);
+  async function handleAddToCart() {
+    await addToCart(firstVariant.id);
+    if (success) {
+      toast('Item Added To Cart');
+    }
   }
 
   return (
