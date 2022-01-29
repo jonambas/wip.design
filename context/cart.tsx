@@ -5,13 +5,15 @@ import { createCart, getCart } from '@lib/queries';
 type CartContextTypes = {
   cartID?: string;
   cart?: { [key: string]: any };
-  addToCart?: (id: string) => Promise<void>;
+  addToCart: (id: string) => Promise<void> | void;
   loading: boolean;
-  // updateCart: (id: string) => Promise<void>;
+  updateCart: (id: string) => Promise<void> | void;
 };
 
 const CartContext = React.createContext<CartContextTypes>({
   loading: false,
+  addToCart: () => {},
+  updateCart: () => {},
 });
 
 export function useCartContext() {
@@ -65,7 +67,7 @@ function CartProvider(props: CartProviderProps): JSX.Element {
   }
 
   return (
-    <CartContext.Provider value={{ cart, cartID, addToCart, loading }}>
+    <CartContext.Provider value={{ cart, cartID, addToCart, loading, updateCart }}>
       {props.children}
     </CartContext.Provider>
   );

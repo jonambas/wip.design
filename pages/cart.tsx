@@ -51,7 +51,7 @@ const Cart = () => {
               <Box textAlign="right">Amount</Box>
             </Box>
             <Box borderTop="1px solid #000">
-              {cart.lines.edges.map(({ node }: any, i) => {
+              {cart.lines.edges.map(({ node }: any, i: number) => {
                 return (
                   <Box
                     key={i}
