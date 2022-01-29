@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import Theme from '@sweatpants/theme';
 import { createGlobalStyle } from 'styled-components';
+import CartProvider from '@context/cart';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -18,8 +19,8 @@ const GlobalStyle = createGlobalStyle`
 
   @font-face {
     font-family: 'Whyte-Inktrap';
-    src: url('./ABCWhyteInktrap-Bold-Trial.woff2') format('woff2'),
-      url('./ABCWhyteInktrap-Bold-Trial.woff') format('woff');
+    src: url('/ABCWhyteInktrap-Bold-Trial.woff2') format('woff2'),
+      url('/ABCWhyteInktrap-Bold-Trial.woff') format('woff');
     font-weight: 800;
     font-style: bold;
   }
@@ -74,7 +75,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <GlobalStyle />
-      <Component {...pageProps} />
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
     </Theme>
   );
 }
