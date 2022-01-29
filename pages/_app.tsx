@@ -10,11 +10,23 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 16px;
-    font-family: 'PT Mono', 'SFMono-Regular', Monaco, Consolas, 'Lucida Console', monospace;
+    font-family: 'Roboto Mono', 'SFMono-Regular', Monaco, Consolas, 'Lucida Console', monospace;
   }
 
   h1, h2, h3, h4, h5, h6, p {
     margin: 0;
+  }
+
+  p {
+    line-height: 1.35em;
+  }
+
+  ::selection {
+    background: #aaeeff;
+  }
+
+  ::-moz-selection {
+    background: #ffcccc;
   }
 
   @font-face {
@@ -70,7 +82,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
         fonts: {
           sans: "'Whyte-Inktrap', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, Helvetica, sans-serif;",
-          mono: "'PT Mono', 'SFMono-Regular', Monaco, Consolas, 'Lucida Console', monospace",
+          mono: "'Roboto Mono', 'SFMono-Regular', Monaco, Consolas, 'Lucida Console', monospace",
         },
       }}
     >

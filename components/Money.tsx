@@ -10,15 +10,23 @@ export type MoneyProps = {
     maxVariantPrice?: Price;
     minVariantPrice?: Price;
   };
+  amount?: number;
+  currencyCode?: string;
 };
 
 function Money(props: MoneyProps): JSX.Element | null {
   if (!props.priceRange) {
-    return null;
+    const isUSD = props.currencyCode === 'USD';
+    const currency = isUSD ? '$' : ''; // TODO support international?
+    return (
+      <>
+        {currency}
+        {props.amount}
+      </>
+    );
   }
 
   const { maxVariantPrice, minVariantPrice } = props.priceRange;
-
   const isUSD = maxVariantPrice?.currencyCode === 'USD';
   const currency = isUSD ? '$' : ''; // TODO support international?
 

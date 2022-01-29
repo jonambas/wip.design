@@ -12,7 +12,8 @@ function PageHeader(props: PageHeaderProps): JSX.Element {
         as="h1"
         fontSize={['3.5rem', '5rem', '7rem']}
         fontFamily="sans"
-        mb="1rem"
+        mb="400"
+        pt="900"
         style={{ textTransform: 'uppercase' }}
       >
         {props.children}

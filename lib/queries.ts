@@ -52,6 +52,10 @@ export async function getProduct(handle: string) {
         edges {
           node {
             id
+            priceV2 {
+              amount
+              currencyCode
+            }
           }
         }
       }
@@ -72,6 +76,64 @@ export async function getProduct(handle: string) {
     }
   }`);
 
+  return result.data;
+}
+
+export async function getCart(id: string) {
+  const result = await shopify(`
+  {
+    cart(id: "${id}") {
+      checkoutUrl
+      id
+      updatedAt
+      estimatedCost {
+        totalAmount {
+          amount
+          currencyCode
+        }
+        subtotalAmount {
+          amount
+          currencyCode
+        }
+        totalDutyAmount {
+          amount
+          currencyCode
+        }
+        totalTaxAmount {
+          amount
+          currencyCode
+        }
+      }
+      lines(first: 250) {
+        edges {
+          node {
+            quantity
+            merchandise {
+              ... on ProductVariant {
+                id
+                priceV2 {
+                  amount
+                  currencyCode
+                }
+                product {
+                  ... on Product {
+                    handle
+                    title
+                    featuredImage {
+                      url
+                      altText
+                    }
+                  }
+                }
+                
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  `);
   return result.data;
 }
 

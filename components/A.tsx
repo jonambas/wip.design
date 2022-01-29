@@ -17,8 +17,8 @@ type AProps = React.ComponentPropsWithoutRef<'a'> & {
   children?: React.ReactNode;
 };
 
-function A(props: AProps): JSX.Element {
-  return <StyledA {...props} />;
-}
+const A = React.forwardRef<HTMLAnchorElement, AProps>(function A(props, userRef) {
+  return <StyledA {...props} ref={userRef} />;
+});
 
 export default A;
