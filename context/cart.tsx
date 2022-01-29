@@ -6,6 +6,7 @@ type CartContextTypes = {
   cartID?: string;
   cart?: { [key: string]: any };
   addToCart: (id: string) => Promise<void> | void;
+  success: boolean;
   loading: boolean;
   updateCart: (id: string) => Promise<void> | void;
 };
@@ -13,6 +14,7 @@ type CartContextTypes = {
 const CartContext = React.createContext<CartContextTypes>({
   loading: false,
   addToCart: () => {},
+  success: false,
   updateCart: () => {},
 });
 
@@ -27,8 +29,9 @@ type CartProviderProps = {
 function CartProvider(props: CartProviderProps): JSX.Element {
   const [cartID, setCartID] = React.useState<string>('');
   const [cart, setCart] = React.useState<{ [key: string]: any }>({});
-  const [loading, setLoading] = React.useState<boolean>(false);
   const [cartUpdated, setCartUpdated] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [success, setSuccess] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const id = getCartID();
@@ -56,6 +59,9 @@ function CartProvider(props: CartProviderProps): JSX.Element {
 
   // Creates a new Cart if one does not exist
   async function addToCart(merchandiseID: string) {
+    setLoading(true);
+    setSuccess(false);
+
     if (!cartID) {
       // Create new Cart
       const response = await createCart(merchandiseID, 1);
@@ -82,7 +88,7 @@ function CartProvider(props: CartProviderProps): JSX.Element {
           ...currentLines[indexToUpdate],
           quantity: currentLines[indexToUpdate].quantity + 1,
         };
-        const response = await updateCartLines(
+        await updateCartLines(
           cartID,
           `[{ id: "${updatedLine.id}", quantity: ${updatedLine.quantity}, }]`,
         );
@@ -93,6 +99,7 @@ function CartProvider(props: CartProviderProps): JSX.Element {
     }
 
     setCartUpdated(true);
+    setSuccess(true);
   }
 
   function updateCart() {
@@ -100,7 +107,9 @@ function CartProvider(props: CartProviderProps): JSX.Element {
   }
 
   return (
-    <CartContext.Provider value={{ cart, cartID, addToCart, loading, updateCart }}>
+    <CartContext.Provider
+      value={{ success, cart, cartID, addToCart, loading, updateCart }}
+    >
       {props.children}
     </CartContext.Provider>
   );

@@ -3,7 +3,7 @@ export function countTotalItems(cart?: { [key: string]: any }) {
     return 0;
   }
 
-  const lines = cart?.lines?.edges;
+  const lines = cart?.lines?.edges || [];
   const count = lines.reduce((acc: number, { node }: any) => {
     return acc + node.quantity;
   }, 0);

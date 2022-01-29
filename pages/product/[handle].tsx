@@ -16,7 +16,11 @@ type ProductPageProps = {
 function ProductPage(props: ProductPageProps): JSX.Element {
   const { product } = props.shopify;
   const firstVariant = product.variants.edges[0].node;
-  const { addToCart } = useCartContext();
+  const { addToCart, success, loading } = useCartContext();
+
+  function handleAddToCart() {
+    addToCart(firstVariant.id);
+  }
 
   return (
     <Layout>
@@ -33,7 +37,9 @@ function ProductPage(props: ProductPageProps): JSX.Element {
               <Money priceRange={product.priceRange} />
             </Box>
             <Box mb="500" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
-            <Button onClick={() => addToCart(firstVariant.id)}>Add to Cart</Button>
+            <Button onClick={handleAddToCart} disabled={loading} loading={loading}>
+              Add to Cart
+            </Button>
           </Box>
         </Box>
       </Box>
