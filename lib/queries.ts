@@ -108,6 +108,7 @@ export async function getCart(id: string) {
         edges {
           node {
             quantity
+            id
             merchandise {
               ... on ProductVariant {
                 id
@@ -139,31 +140,71 @@ export async function getCart(id: string) {
 
 export async function createCart(merchandiseID: string, quantity: number) {
   const result = await shopify(`
-  mutation 
-    {
-      cartCreate(input: {
-        lines: [{ merchandiseId: "${merchandiseID}", quantity: ${quantity} }]
-      }) {
-        cart {
-          checkoutUrl
-          id
-          updatedAt
+    mutation 
+      {
+        cartCreate(input: {
+          lines: [{ merchandiseId: "${merchandiseID}", quantity: ${quantity} }]
+        }) {
+          cart {
+            checkoutUrl
+            id
+            updatedAt
+          }
+          userErrors {
+            field
+            message
+          }
         }
-        userErrors {
-          field
-          message
-        }
-      }
-    }      
+      }      
   `);
 
   return result.data;
 }
 
-export const shop = `
-{
-	shop {
-    name
-  }
+export async function updateCartLines(cartID: string, lines: string) {
+  const result = await shopify(`
+    mutation
+      {
+        cartLinesUpdate(
+          cartId: "${cartID}",
+          lines: ${lines}
+        ) {
+          cart {
+            updatedAt
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+  `);
+
+  return result.data;
 }
-`;
+
+export async function addItemToCart(
+  cartID: string,
+  merchandiseID: string,
+  quantity: number,
+) {
+  const result = await shopify(`
+    mutation
+      {
+        cartLinesAdd(
+          cartId: "${cartID}",
+          lines: [{ merchandiseId: "${merchandiseID}", quantity: ${quantity} }]
+        ) {
+          cart {
+            updatedAt
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+  `);
+
+  return result.data;
+}

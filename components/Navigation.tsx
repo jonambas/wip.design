@@ -3,26 +3,14 @@ import Link from 'next/link';
 import Box from '@sweatpants/box';
 import A from '@components/A';
 import { useCartContext } from '@context/cart';
+import { countTotalItems } from '@utils/cart';
 
 function Navigation(): JSX.Element {
   const { cart, loading } = useCartContext();
-  const itemsInCart = cart?.lines?.edges.length || 0;
+  const itemsInCart = countTotalItems(cart) || 0;
 
   return (
-    <Box
-      as="nav"
-      position="fixed"
-      top="0"
-      left="0"
-      right="0"
-      color="#FFF"
-      zIndex="100"
-      style={
-        {
-          // backdropFilter: 'invert(1)',
-        }
-      }
-    >
+    <Box as="nav" position="fixed" top="0" left="0" right="0" color="#FFF" zIndex="100">
       <Box
         display="flex"
         justifyContent="flex-end"

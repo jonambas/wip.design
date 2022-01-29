@@ -1,6 +1,6 @@
 import React from 'react';
 import { saveCartID, getCartID } from '@utils/localCart';
-import { createCart, getCart } from '@lib/queries';
+import { addItemToCart, createCart, getCart, updateCartLines } from '@lib/queries';
 
 type CartContextTypes = {
   cartID?: string;
@@ -28,6 +28,7 @@ function CartProvider(props: CartProviderProps): JSX.Element {
   const [cartID, setCartID] = React.useState<string>('');
   const [cart, setCart] = React.useState<{ [key: string]: any }>({});
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [cartUpdated, setCartUpdated] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     const id = getCartID();
@@ -38,17 +39,20 @@ function CartProvider(props: CartProviderProps): JSX.Element {
 
   React.useEffect(() => {
     async function getCartContents(id: string) {
-      setLoading(true);
-      const response = await getCart(id);
-      setCart(response.cart);
-      setLoading(false);
+      if (cartUpdated) {
+        setLoading(true);
+        const response = await getCart(id);
+        setCart(response.cart);
+        setLoading(false);
+        setCartUpdated(false);
+      }
     }
 
     // Grab cart contents if it exists
     if (cartID) {
       getCartContents(cartID);
     }
-  }, [cartID]);
+  }, [cartID, cartUpdated]);
 
   // Creates a new Cart if one does not exist
   async function addToCart(merchandiseID: string) {
@@ -59,7 +63,36 @@ function CartProvider(props: CartProviderProps): JSX.Element {
       saveCartID(response.cartCreate.cart.id);
     } else {
       // Add to existing cart
+
+      // Prepare Lines
+      const currentLines = cart.lines.edges.map(({ node }: any) => ({
+        id: node.id,
+        merchandiseId: node.merchandise.id,
+        quantity: node.quantity,
+      }));
+
+      // Item is already in cart, so increment its quantity
+      if (
+        currentLines.find(({ merchandiseId }: any) => merchandiseID === merchandiseId)
+      ) {
+        const indexToUpdate = currentLines.findIndex(
+          ({ merchandiseId }: any) => merchandiseID === merchandiseId,
+        );
+        const updatedLine = {
+          ...currentLines[indexToUpdate],
+          quantity: currentLines[indexToUpdate].quantity + 1,
+        };
+        const response = await updateCartLines(
+          cartID,
+          `[{ id: "${updatedLine.id}", quantity: ${updatedLine.quantity}, }]`,
+        );
+      } else {
+        // Item isnt in cart, so add it
+        await addItemToCart(cartID, merchandiseID, 1);
+      }
     }
+
+    setCartUpdated(true);
   }
 
   function updateCart() {

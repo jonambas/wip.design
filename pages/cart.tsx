@@ -5,10 +5,13 @@ import PageHeader from '@components/PageHeader';
 import { useCartContext } from '@context/cart';
 import Button from '@components/Button';
 import Money from '@components/Money';
+import { countTotalItems } from '@utils/cart';
+import Link from 'next/link';
+import A from '@components/A';
 
 const Cart = () => {
   const { cartID, cart, loading } = useCartContext();
-  const totalItems = cart?.lines?.edges.length;
+  const totalItems = countTotalItems(cart) || 0;
 
   return (
     <>
@@ -61,7 +64,11 @@ const Cart = () => {
                     borderBottom="1px solid #000"
                   >
                     <Box>{node.quantity}</Box>
-                    <Box>{node.merchandise.product.title}</Box>
+                    <Box>
+                      <Link href={`/product/${node.merchandise.product.handle}`} passHref>
+                        <A>{node.merchandise.product.title}</A>
+                      </Link>
+                    </Box>
                     <Box textAlign="right">
                       <Money {...node.merchandise.priceV2} />
                     </Box>
