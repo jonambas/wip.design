@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app';
 import Theme from '@sweatpants/theme';
-import Box from '@sweatpants/box';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -10,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 16px;
+    font-family: 'PT Mono', 'SFMono-Regular', Monaco, Consolas, 'Lucida Console', monospace;
+  }
+
+  body {
   }
 
   @font-face {
@@ -38,6 +41,27 @@ function MyApp({ Component, pageProps }: AppProps) {
           900: '6rem',
           1000: '8rem',
         },
+        sizes: {
+          0: '0rem',
+          100: '0.25rem',
+          200: '0.5rem',
+          300: '0.75rem',
+          400: '1rem',
+          500: '1.5rem',
+          600: '2rem',
+          700: '3rem',
+          800: '4rem',
+          900: '6rem',
+          1000: '7rem',
+        },
+        fontSizes: {
+          200: '0.5rem',
+          300: '0.75rem',
+          400: '1rem',
+          500: '1.5rem',
+          600: '2rem',
+          1000: '4rem',
+        },
         colors: {
           blue: '#0000FF',
           black: '#000',
@@ -49,9 +73,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <GlobalStyle />
-      <Box m={['500', '600', '800']}>
-        <Component {...pageProps} />
-      </Box>
+      <Component {...pageProps} />
     </Theme>
   );
 }
