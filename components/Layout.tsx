@@ -5,7 +5,9 @@ import Footer from '@components/Footer';
 function Layout(props: { children: React.ReactNode }): JSX.Element {
   return (
     <>
-      <Box m={['500', '600', '800']}>{props.children}</Box>
+      <Box m={['500', '600', '800']} maxWidth="1600px">
+        {props.children}
+      </Box>
       <Footer />
     </>
   );

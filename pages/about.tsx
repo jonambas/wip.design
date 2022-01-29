@@ -7,7 +7,7 @@ const About = () => {
     <>
       <Layout>
         <Head>
-          <title>WIP Design</title>
+          <title>About</title>
           <meta
             name="description"
             content="WIP Design is a creative studio based in Baltimore, MD."
