@@ -1,9 +1,9 @@
-import type { NextPage, GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Box from '@sweatpants/box';
 import { getAllProducts } from '@lib/queries';
 import ProductList from '@components/ProductList';
-import Footer from '@components/Footer';
+import Layout from '@components/Layout';
 
 type HomeProps = {
   shopify: { [key: string]: any };
@@ -18,7 +18,7 @@ const Home = (props: HomeProps) => {
 
   return (
     <>
-      <Box m={['500', '600', '800']}>
+      <Layout>
         <Head>
           <title>WIP</title>
           <meta
@@ -30,21 +30,12 @@ const Home = (props: HomeProps) => {
           <Box as="h1" fontSize={['3.5rem', '5rem', '7rem']} fontFamily="sans" mb="1rem">
             WIP.DESIGN
           </Box>
-          <Box>
-            <Box as="p" fontFamily="mono" color="black" maxWidth="18rem">
-              WIP is a creative studio established in 2022 based in Baltimore, Maryland.
-            </Box>
-            <Box as="p" fontFamily="mono" color="black" maxWidth="18rem">
-              jon@wip.design
-            </Box>
-          </Box>
         </Box>
 
         <Box mb="1000">
           <ProductList products={products.edges} />
         </Box>
-      </Box>
-      <Footer />
+      </Layout>
     </>
   );
 };
