@@ -28,7 +28,9 @@ function Footer(): JSX.Element {
             <A>About</A>
           </Link>
         </Box>
-        <Box mb="500">Instagram</Box>
+        <Box mb="500">
+          <A href="https://www.instagram.com/wip__design/">Instagram</A>
+        </Box>
         <Box>
           <Link href="/terms-conditions" passHref>
             <A>Terms & Conditions</A>

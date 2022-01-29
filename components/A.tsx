@@ -13,7 +13,7 @@ const StyledA = styled.a`
   }
 `;
 
-type AProps = {
+type AProps = React.ComponentPropsWithoutRef<'a'> & {
   children?: React.ReactNode;
 };
 
