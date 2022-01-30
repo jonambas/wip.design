@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import Theme from '@sweatpants/theme';
 import { createGlobalStyle } from 'styled-components';
 import CartProvider from '@context/cart';
@@ -96,6 +97,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
       }}
     >
+      <Head>
+        <link
+          rel="preload"
+          href="/ABCWhyteInktrap-Bold-Trial.woff2"
+          as="font"
+          crossOrigin=""
+        />
+      </Head>
       <GlobalStyle />
       <ToastProvider>
         <CartProvider>
