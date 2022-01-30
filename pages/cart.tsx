@@ -12,12 +12,8 @@ import Minus from '@icons/Minus';
 import Add from '@icons/Add';
 
 const Cart = () => {
-  const { cartID, cart, loading, addToCart, updateCartLine } = useCartContext();
+  const { cartID, cart, loading, updateCartLine } = useCartContext();
   const totalItems = countTotalItems(cart) || 0;
-
-  function handleAdd(id: string) {
-    addToCart(id);
-  }
 
   function handleUpdate(id: string, quantity: number) {
     updateCartLine(id, quantity);
@@ -33,11 +29,6 @@ const Cart = () => {
         />
       </Head>
       <PageHeader>Cart</PageHeader>
-      {loading && !cartID && (
-        <Box py="800" fontSize="600">
-          Loading Cart...
-        </Box>
-      )}
       {!totalItems && !loading && (
         <>
           <Box py="800" fontSize="600">
@@ -45,7 +36,7 @@ const Cart = () => {
           </Box>
         </>
       )}
-      {cartID && totalItems ? (
+      {cartID && totalItems && cart ? (
         <>
           <Box mb="500">
             {totalItems} item{totalItems === 1 ? '' : 's'} in your cart.

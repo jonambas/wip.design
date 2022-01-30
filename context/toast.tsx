@@ -61,8 +61,9 @@ function ToastProvider(props: ToastProps): JSX.Element {
       {props.children}
       <Box
         position="fixed"
-        top="4rem"
-        right="4rem"
+        top={['0', '4rem']}
+        right={['0', '4rem']}
+        left={['0', 'auto']}
         zIndex="1000"
         style={{
           pointerEvents: 'none',
