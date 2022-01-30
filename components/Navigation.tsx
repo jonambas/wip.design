@@ -6,7 +6,7 @@ import { useCartContext } from '@context/cart';
 import { countTotalItems } from '@utils/cart';
 
 function Navigation(): JSX.Element {
-  const { cart, loading } = useCartContext();
+  const { cart } = useCartContext();
   const itemsInCart = countTotalItems(cart) || 0;
 
   return (
@@ -22,6 +22,11 @@ function Navigation(): JSX.Element {
         <Box px="400">
           <Link href="/" passHref>
             <A>Shop</A>
+          </Link>
+        </Box>
+        <Box px="400">
+          <Link href="/about" passHref>
+            <A>About</A>
           </Link>
         </Box>
         <Box pl="400">

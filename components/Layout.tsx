@@ -7,7 +7,7 @@ function Layout(props: { children: React.ReactNode }): JSX.Element {
   return (
     <>
       <Navigation />
-      <Box m={['500', '600', '800']} maxWidth="1600px">
+      <Box as="main" m={['500', '600', '800']} maxWidth="1600px">
         {props.children}
       </Box>
       <Footer />

@@ -21,7 +21,7 @@ const Animator = styled(Box)`
 
 function Footer(): JSX.Element {
   return (
-    <Box m="0" pt="1000" overflow="hidden">
+    <Box as="footer" m="0" pt="1000" overflow="hidden">
       <Box px={['500', '600', '800']} mb="1000">
         <Box mb="500">
           <Link href="/about" passHref>
@@ -39,12 +39,13 @@ function Footer(): JSX.Element {
       </Box>
       <Animator mb="100">
         <Box fontFamily="sans" fontSize="500" aria-hidden="true">
-          Support your local art Dealer. Support your local art Dealer. Support your local art
-          Dealer. Support your local art Dealer. Support your local art Dealer. Support your local
-          art Dealer. Support your local art Dealer. Support your local art Dealer. Support your
-          local art Dealer. Support your local art Dealer. Support your local art Dealer. Support
-          your local art Dealer. Support your local art Dealer. Support your local art Dealer.
-          Support your local art Dealer. Support your local art Dealer.
+          Support your local art Dealer. Support your local art Dealer. Support your local
+          art Dealer. Support your local art Dealer. Support your local art Dealer.
+          Support your local art Dealer. Support your local art Dealer. Support your local
+          art Dealer. Support your local art Dealer. Support your local art Dealer.
+          Support your local art Dealer. Support your local art Dealer. Support your local
+          art Dealer. Support your local art Dealer. Support your local art Dealer.
+          Support your local art Dealer.
         </Box>
       </Animator>
     </Box>
