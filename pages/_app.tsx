@@ -23,11 +23,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background: #aaeeff;
+    background: #0000ff;
+    color: #ffffff;
   }
 
   ::-moz-selection {
-    background: #ffcccc;
+    background: #0000ff;
+    color: #ffffff;
   }
 
   @font-face {

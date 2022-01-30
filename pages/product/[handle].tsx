@@ -20,12 +20,15 @@ function ProductPage(props: ProductPageProps): JSX.Element {
   const { addToCart, success, loading } = useCartContext();
   const { toast } = useToastContext();
 
-  async function handleAddToCart() {
-    await addToCart(firstVariant.id);
+  function handleAddToCart() {
+    addToCart(firstVariant.id);
+  }
+
+  React.useEffect(() => {
     if (success) {
       toast('Item Added To Cart');
     }
-  }
+  }, [success]);
 
   return (
     <Layout>

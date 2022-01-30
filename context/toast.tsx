@@ -1,6 +1,7 @@
 import Box from '@sweatpants/box';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Check from '@icons/Check';
 
 const TIMEOUT = 5000;
 
@@ -8,12 +9,14 @@ type ToastContextTypes = {
   toast: (m: string) => void;
 };
 
-const ToastContext = React.createContext<ToastContextTypes>({
-  toast: () => {},
-});
+const ToastContext = React.createContext<ToastContextTypes | undefined>(undefined);
 
 export function useToastContext() {
-  return React.useContext(ToastContext);
+  const context = React.useContext(ToastContext);
+  if (context === undefined) {
+    throw new Error('useToastContext must be used within a ToastProvider');
+  }
+  return context;
 }
 
 type ToastProps = {
@@ -21,19 +24,33 @@ type ToastProps = {
 };
 
 function ToastProvider(props: ToastProps): JSX.Element {
-  const [current, setCurrent] = React.useState<string>('');
+  const [list, setList] = React.useState<{ id: string; message: string }[]>([]);
 
   function toast(message: string) {
-    setCurrent(message);
+    const id = `${new Date().getTime()}`;
+    setList([...list, { id, message }]);
+  }
+
+  function dismiss(id: string) {
+    const index = list.findIndex((e) => e.id === id);
+    if (index !== -1) {
+      const newList = list;
+      newList.splice(index, 1);
+      setList([...newList]);
+    }
   }
 
   React.useEffect(() => {
-    if (current) {
-      window.setTimeout(() => {
-        setCurrent('');
-      }, TIMEOUT);
-    }
-  }, [current]);
+    const timeout = window.setTimeout(() => {
+      if (list.length) {
+        dismiss(list[0].id);
+      }
+    }, 3000);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [list]);
 
   return (
     <ToastContext.Provider
@@ -42,41 +59,41 @@ function ToastProvider(props: ToastProps): JSX.Element {
       }}
     >
       {props.children}
-      <AnimatePresence>
-        {current && (
-          <motion.div
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            transition={{ duration: 0.35, ease: [0.4, 0, 0.3, 1] }}
-            style={{
-              position: 'fixed',
-              top: '4rem',
-              right: '4rem',
-              pointerEvents: 'none',
-              zIndex: 1000,
-              originY: 0,
-            }}
-          >
-            <Box display="flex" alignItems="center" bg="#0000ff" color="#fff" p="500">
-              <svg
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-              >
-                <path
-                  d="M8 10.5V10H7v.5h1zm-1 .01v.5h1v-.5H7zM7 4v4h1V4H7zm0 6.5v.01h1v-.01H7zm.5 3.5A6.5 6.5 0 011 7.5H0A7.5 7.5 0 007.5 15v-1zM14 7.5A6.5 6.5 0 017.5 14v1A7.5 7.5 0 0015 7.5h-1zM7.5 1A6.5 6.5 0 0114 7.5h1A7.5 7.5 0 007.5 0v1zm0-1A7.5 7.5 0 000 7.5h1A6.5 6.5 0 017.5 1V0z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-              <Box pl="400">{current}</Box>
-            </Box>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Box
+        position="fixed"
+        top="4rem"
+        right="4rem"
+        zIndex="1000"
+        style={{
+          pointerEvents: 'none',
+        }}
+      >
+        <AnimatePresence>
+          {list.map(({ id, message }) => {
+            return <Toast key={id} message={message} />;
+          })}
+        </AnimatePresence>
+      </Box>
     </ToastContext.Provider>
+  );
+}
+
+function Toast({ message }: { message: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -5 }}
+      transition={{ duration: 0.35, ease: [0.4, 0, 0.3, 1] }}
+      style={{
+        originY: 0,
+      }}
+    >
+      <Box display="flex" alignItems="center" bg="#0000ff" color="#fff" p="500" mb="200">
+        <Check />
+        <Box pl="400">{message}</Box>
+      </Box>
+    </motion.div>
   );
 }
 
