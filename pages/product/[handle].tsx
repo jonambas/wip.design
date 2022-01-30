@@ -8,7 +8,7 @@ import PageHeader from '@components/PageHeader';
 import Button from '@components/Button';
 import { getProduct } from '@lib/queries';
 import { useCartContext } from '@context/cart';
-import { useToastContext } from '@context/toast';
+import Gallery from '@components/Gallery';
 
 type ProductPageProps = {
   shopify: { [key: string]: any };
@@ -16,18 +16,15 @@ type ProductPageProps = {
 
 function ProductPage(props: ProductPageProps): JSX.Element {
   const { product } = props.shopify;
+  const { addToCart, loading } = useCartContext();
   const firstVariant = product.variants.edges[0].node;
-  const { addToCart, success, loading } = useCartContext();
+  const images = product?.images?.edges;
 
   function handleAddToCart() {
     addToCart(firstVariant.id);
   }
 
-  // React.useEffect(() => {
-  //   if (success) {
-  //     toast('Item Added To Cart');
-  //   }
-  // }, [success]);
+  console.log(product);
 
   return (
     <Layout>
@@ -37,8 +34,16 @@ function ProductPage(props: ProductPageProps): JSX.Element {
       </Head>
       <PageHeader>{product.title}</PageHeader>
       <Box>
-        <Box display="grid" gridTemplateColumns={['1fr', '1.5fr 1fr']}>
-          <Box></Box>
+        <Box
+          display="grid"
+          gridTemplateColumns={['1fr', '1fr 1fr']}
+          gridGap={['400', '800']}
+        >
+          <Box display="flex" justifyContent="center">
+            <Box maxWidth="40rem">
+              <Gallery images={images} />
+            </Box>
+          </Box>
           <Box>
             <Box fontSize="500" mb="500">
               <Money priceRange={product.priceRange} />

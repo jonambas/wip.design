@@ -82,10 +82,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         colors: {
           blue: '#0000FF',
           black: '#000',
+          white: '#FFF',
+          gray: '#CECBC8',
         },
         fonts: {
           sans: "'Whyte-Inktrap', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, Helvetica, sans-serif;",
           mono: "'Roboto Mono', 'SFMono-Regular', Monaco, Consolas, 'Lucida Console', monospace",
+        },
+        radii: {
+          200: '20px',
+          400: '35px',
+          800: '75px',
         },
       }}
     >

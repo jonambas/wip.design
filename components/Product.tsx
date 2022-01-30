@@ -6,8 +6,12 @@ import css from '@styled-system/css';
 import Money from './Money';
 
 const StyledSizer = styled(Box)`
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   transition: 0.15s;
+
+  ${css({
+    // bg: 'gray',
+  })}
 `;
 
 const StyledLink = styled.a`
@@ -22,7 +26,7 @@ const StyledLink = styled.a`
   &:hover, &:active, &:focus {
     ${StyledSizer} {
       outline: transparent;
-      border: 2px solid #000;
+      border: 3px solid #000;
     }
   }
 `;
@@ -45,7 +49,13 @@ function Product(props: ProductProps): JSX.Element {
   return (
     <Link href={`/product/${handle}`} passHref>
       <StyledLink>
-        <StyledSizer position="relative" pt="133%" overflow="hidden" mb="200" borderRadius="35px">
+        <StyledSizer
+          position="relative"
+          pt="133%"
+          overflow="hidden"
+          mb="200"
+          borderRadius="400"
+        >
           <Box
             as="img"
             mb="0"

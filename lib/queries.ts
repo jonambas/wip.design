@@ -63,6 +63,16 @@ export async function getProduct(handle: string) {
         url
         altText
       }
+      images(first: 10) {
+        edges {
+          node {
+            altText
+            url
+            width
+            height
+          }
+        }
+      }
       priceRange {
         maxVariantPrice {
           amount
