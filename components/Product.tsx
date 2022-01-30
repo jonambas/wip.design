@@ -36,6 +36,7 @@ export type ProductProps = {
   title?: string;
   id?: string;
   availableForSale?: boolean;
+  totalInventory?: number;
   featuredImage?: {
     url?: string;
     altText?: string;
@@ -44,7 +45,7 @@ export type ProductProps = {
 };
 
 function Product(props: ProductProps): JSX.Element {
-  const { title, handle, featuredImage, priceRange } = props;
+  const { title, handle, featuredImage, priceRange, totalInventory } = props;
 
   return (
     <Link href={`/product/${handle}`} passHref>
@@ -67,6 +68,25 @@ function Product(props: ProductProps): JSX.Element {
             left="50%"
             style={{ transform: 'translate(-50%, -50%)' }}
           />
+          {totalInventory === 0 && (
+            <Box
+              position="absolute"
+              width="100%"
+              height="auto"
+              top="50%"
+              left="0"
+              right="0"
+              style={{ transform: 'translate(0, -50%)' }}
+              fontSize="400"
+              fontWeight="600"
+              mb="500"
+              textAlign="center"
+              bg="black"
+              color="white"
+            >
+              SOLD OUT
+            </Box>
+          )}
         </StyledSizer>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box as="p" m="0" fontSize="400" pr="300">

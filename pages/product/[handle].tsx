@@ -24,8 +24,6 @@ function ProductPage(props: ProductPageProps): JSX.Element {
     addToCart(firstVariant.id);
   }
 
-  console.log(product);
-
   return (
     <Layout>
       <Head>
@@ -45,13 +43,20 @@ function ProductPage(props: ProductPageProps): JSX.Element {
             </Box>
           </Box>
           <Box>
-            <Box fontSize="500" mb="500">
+            <Box fontSize="500" fontWeight="600" mb="500">
               <Money priceRange={product.priceRange} />
             </Box>
+            {product.totalInventory === 0 && (
+              <Box fontSize="500" fontWeight="600" mb="500">
+                SOLD OUT
+              </Box>
+            )}
             <Box mb="500" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
-            <Button onClick={handleAddToCart} disabled={loading} loading={loading}>
-              Add to Cart
-            </Button>
+            {product.availableForSale && (
+              <Button onClick={handleAddToCart} disabled={loading} loading={loading}>
+                Add to Cart
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
