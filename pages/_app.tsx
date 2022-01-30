@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import Theme from '@sweatpants/theme';
 import { createGlobalStyle } from 'styled-components';
 import CartProvider from '@context/cart';
 import ToastProvider from '@context/toast';
+import './fonts.css';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -31,14 +31,6 @@ const GlobalStyle = createGlobalStyle`
   ::-moz-selection {
     background: #0000ff;
     color: #ffffff;
-  }
-
-  @font-face {
-    font-family: 'Whyte-Inktrap';
-    src: url('/ABCWhyteInktrap-Bold-Trial.woff2') format('woff2'),
-      url('/ABCWhyteInktrap-Bold-Trial.woff') format('woff');
-    font-weight: 800;
-    font-style: bold;
   }
 `;
 
@@ -97,14 +89,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
       }}
     >
-      <Head>
-        <link
-          rel="preload"
-          href="/ABCWhyteInktrap-Bold-Trial.woff2"
-          as="font"
-          crossOrigin=""
-        />
-      </Head>
       <GlobalStyle />
       <ToastProvider>
         <CartProvider>

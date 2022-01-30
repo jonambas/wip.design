@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Whyte-Inktrap';
+  src: url('/ABCWhyteInktrap-Bold-Trial.woff2') format('woff2'),
+    url('/ABCWhyteInktrap-Bold-Trial.woff') format('woff');
+  font-weight: 800;
+  font-style: bold;
+}
