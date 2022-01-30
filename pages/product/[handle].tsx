@@ -18,17 +18,16 @@ function ProductPage(props: ProductPageProps): JSX.Element {
   const { product } = props.shopify;
   const firstVariant = product.variants.edges[0].node;
   const { addToCart, success, loading } = useCartContext();
-  const { toast } = useToastContext();
 
   function handleAddToCart() {
     addToCart(firstVariant.id);
   }
 
-  React.useEffect(() => {
-    if (success) {
-      toast('Item Added To Cart');
-    }
-  }, [success]);
+  // React.useEffect(() => {
+  //   if (success) {
+  //     toast('Item Added To Cart');
+  //   }
+  // }, [success]);
 
   return (
     <Layout>

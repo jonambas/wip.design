@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Box from '@sweatpants/box';
 
-const StyledButton = styled.div`
-  background: #000;
+const StyledButton = styled.div<{ $variant?: 'clear' | 'default' }>`
+  background: ${({ $variant }) => ($variant === 'clear' ? '#fff' : '#000')};
+  color: ${({ $variant }) => ($variant === 'clear' ? '#000' : '#fff')};
+
   border: none;
-  color: #fff;
   margin: 0;
   border-radius: 0;
   padding: 0.8rem 1rem;
@@ -14,25 +15,36 @@ const StyledButton = styled.div`
   &:hover {
     cursor: pointer;
     background: #0000ff;
+    color: #fff;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.3;
   }
 `;
 
-type ButtonAProps = React.ComponentPropsWithoutRef<'a'> & {
-  as?: 'a';
+type CommonProps = {
   loading?: boolean;
+  variant?: 'clear' | 'default';
 };
-type ButtonButtonProps = React.ComponentPropsWithoutRef<'button'> & {
-  as?: 'button';
-  loading?: boolean;
-};
+type ButtonAProps = CommonProps &
+  React.ComponentPropsWithoutRef<'a'> & {
+    as?: 'a';
+  };
+type ButtonButtonProps = CommonProps &
+  React.ComponentPropsWithoutRef<'button'> & {
+    as?: 'button';
+  };
 
 type ButtonProps = ButtonAProps | ButtonButtonProps;
 
 function Button(props: ButtonProps): JSX.Element {
-  const { as = 'button', loading, ...rest } = props;
+  const { as = 'button', loading, variant = 'default', ...rest } = props;
   return (
     <Box display="inline-block" position="relative">
-      <StyledButton as={as} {...rest} />
+      <StyledButton as={as} $variant={variant} {...rest} />
       {loading && (
         <Box
           aria-hidden="true"
@@ -44,8 +56,8 @@ function Button(props: ButtonProps): JSX.Element {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          color="#fff"
-          bg="#000"
+          color={variant === 'clear' ? '#000' : '#fff'}
+          bg={variant === 'clear' ? '#fff' : '#000'}
         >
           ...
         </Box>

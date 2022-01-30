@@ -1,6 +1,7 @@
 import React from 'react';
 import { saveCartID, getCartID } from '@utils/localCart';
 import { addItemToCart, createCart, getCart, updateCartLines } from '@lib/queries';
+import { useToastContext } from '@context/toast';
 
 type CartContextTypes = {
   cartID?: string;
@@ -8,18 +9,17 @@ type CartContextTypes = {
   addToCart: (id: string) => Promise<void> | void;
   success: boolean;
   loading: boolean;
-  updateCart: (id: string) => Promise<void> | void;
+  updateCartLine: (id: string, quantity: number) => Promise<void> | void;
 };
 
-const CartContext = React.createContext<CartContextTypes>({
-  loading: false,
-  addToCart: () => {},
-  success: false,
-  updateCart: () => {},
-});
+const CartContext = React.createContext<CartContextTypes | undefined>(undefined);
 
 export function useCartContext() {
-  return React.useContext(CartContext);
+  const context = React.useContext(CartContext);
+  if (context === undefined) {
+    throw new Error('useCartContext must be used within a CartProvider');
+  }
+  return context;
 }
 
 type CartProviderProps = {
@@ -32,6 +32,8 @@ function CartProvider(props: CartProviderProps): JSX.Element {
   const [cartUpdated, setCartUpdated] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean>(false);
+
+  const { toast } = useToastContext();
 
   React.useEffect(() => {
     const id = getCartID();
@@ -57,13 +59,12 @@ function CartProvider(props: CartProviderProps): JSX.Element {
     }
   }, [cartID, cartUpdated]);
 
-  // Creates a new Cart if one does not exist
   async function addToCart(merchandiseID: string) {
     setLoading(true);
     setSuccess(false);
 
     if (!cartID) {
-      // Create new Cart
+      // Create new Cart because it doesn't exist
       const response = await createCart(merchandiseID, 1);
       setCartID(response.cartCreate.cart.id);
       saveCartID(response.cartCreate.cart.id);
@@ -100,15 +101,42 @@ function CartProvider(props: CartProviderProps): JSX.Element {
 
     setCartUpdated(true);
     setSuccess(true);
+    toast('Item Added to Cart');
   }
 
-  function updateCart() {
-    console.log('add');
+  async function updateCartLine(merchandiseID: string, quantity: number) {
+    setLoading(true);
+    setSuccess(false);
+
+    // Prepare Lines
+    const currentLines = cart.lines.edges.map(({ node }: any) => ({
+      id: node.id,
+      merchandiseId: node.merchandise.id,
+      quantity: node.quantity,
+    }));
+
+    const indexToUpdate = currentLines.findIndex(
+      ({ merchandiseId }: any) => merchandiseID === merchandiseId,
+    );
+
+    const updatedLine = {
+      ...currentLines[indexToUpdate],
+      quantity: quantity,
+    };
+
+    await updateCartLines(
+      cartID,
+      `[{ id: "${updatedLine.id}", quantity: ${updatedLine.quantity}, }]`,
+    );
+
+    setCartUpdated(true);
+    setSuccess(true);
+    toast('Cart Updated');
   }
 
   return (
     <CartContext.Provider
-      value={{ success, cart, cartID, addToCart, loading, updateCart }}
+      value={{ success, cart, cartID, addToCart, loading, updateCartLine }}
     >
       {props.children}
     </CartContext.Provider>

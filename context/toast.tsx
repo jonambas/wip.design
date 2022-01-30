@@ -3,7 +3,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Check from '@icons/Check';
 
-const TIMEOUT = 5000;
+const TIMEOUT = 2000;
 
 type ToastContextTypes = {
   toast: (m: string) => void;
@@ -45,7 +45,7 @@ function ToastProvider(props: ToastProps): JSX.Element {
       if (list.length) {
         dismiss(list[0].id);
       }
-    }, 3000);
+    }, TIMEOUT);
 
     return () => {
       window.clearTimeout(timeout);

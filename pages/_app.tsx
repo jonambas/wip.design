@@ -90,11 +90,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <GlobalStyle />
-      <CartProvider>
-        <ToastProvider>
+      <ToastProvider>
+        <CartProvider>
           <Component {...pageProps} />
-        </ToastProvider>
-      </CartProvider>
+        </CartProvider>
+      </ToastProvider>
     </Theme>
   );
 }
