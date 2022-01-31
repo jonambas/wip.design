@@ -31,10 +31,13 @@ function Footer(): JSX.Element {
         <Box mb="500">
           <A href="https://www.instagram.com/wip__design/">Instagram</A>
         </Box>
-        <Box>
+        <Box mb="500">
           <Link href="/terms-conditions" passHref>
             <A>Terms & Conditions</A>
           </Link>
+        </Box>
+        <Box fontSize="200">
+          Copyright © 2000–2022 WIP Design LLC. All Rights Reserved.
         </Box>
       </Box>
       <Animator mb="100">
