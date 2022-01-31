@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import Box from '@sweatpants/box';
+import css from '@styled-system/css';
 
-const StyledButton = styled.div<{ $variant?: 'clear' | 'default' }>`
+const StyledButton = styled.div<{
+  $variant?: 'clear' | 'default';
+  $size?: 'small' | 'default';
+}>`
   background: ${({ $variant }) => ($variant === 'clear' ? '#fff' : '#000')};
   color: ${({ $variant }) => ($variant === 'clear' ? '#000' : '#fff')};
 
@@ -11,6 +15,13 @@ const StyledButton = styled.div<{ $variant?: 'clear' | 'default' }>`
   border-radius: 0;
   padding: 0.8rem 1rem;
   text-decoration: none;
+
+  ${({ $size }) =>
+    css({
+      fontSize: $size === 'small' ? '300' : '400',
+      px: $size === 'small' ? '400' : '600',
+      py: $size === 'small' ? '300' : '400',
+    })}
 
   &:hover {
     cursor: pointer;
@@ -28,6 +39,7 @@ const StyledButton = styled.div<{ $variant?: 'clear' | 'default' }>`
 type CommonProps = {
   loading?: boolean;
   variant?: 'clear' | 'default';
+  size?: 'small' | 'default';
 };
 type ButtonAProps = CommonProps &
   React.ComponentPropsWithoutRef<'a'> & {
@@ -41,10 +53,16 @@ type ButtonButtonProps = CommonProps &
 type ButtonProps = ButtonAProps | ButtonButtonProps;
 
 function Button(props: ButtonProps): JSX.Element {
-  const { as = 'button', loading, variant = 'default', ...rest } = props;
+  const {
+    as = 'button',
+    loading,
+    variant = 'default',
+    size = 'default',
+    ...rest
+  } = props;
   return (
     <Box display="inline-block" position="relative">
-      <StyledButton as={as} $variant={variant} {...rest} />
+      <StyledButton as={as} $variant={variant} $size={size} {...rest} />
       {loading && (
         <Box
           aria-hidden="true"

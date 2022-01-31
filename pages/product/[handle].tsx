@@ -34,14 +34,10 @@ function ProductPage(props: ProductPageProps): JSX.Element {
       <Box>
         <Box
           display="grid"
-          gridTemplateColumns={['1fr', '1fr 1fr']}
-          gridGap={['400', '800']}
+          gridTemplateColumns={['1fr', '1.3fr 1fr']}
+          gridGap={['400', '600', '800', '900']}
         >
-          <Box display="flex" justifyContent="center">
-            <Box maxWidth="40rem">
-              <Gallery images={images} />
-            </Box>
-          </Box>
+          <Gallery images={images} />
           <Box>
             <Box fontSize="500" fontWeight="600" mb="500">
               <Money priceRange={product.priceRange} />
@@ -51,7 +47,14 @@ function ProductPage(props: ProductPageProps): JSX.Element {
                 SOLD OUT
               </Box>
             )}
-            <Box mb="500" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
+            <Box
+              mb="500"
+              fontSize="400"
+              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+            />
+            <Box mb="500" fontSize="400">
+              Free Shipping
+            </Box>
             {product.availableForSale && (
               <Button onClick={handleAddToCart} disabled={loading} loading={loading}>
                 Add to Cart

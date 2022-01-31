@@ -38,7 +38,7 @@ const Cart = () => {
       )}
       {cartID && totalItems && cart ? (
         <>
-          <Box mb="500">
+          <Box mb="200">
             {totalItems} item{totalItems === 1 ? '' : 's'} in your cart.
           </Box>
           <Box
@@ -66,6 +66,7 @@ const Cart = () => {
                   <Box display="flex" alignItems="center">
                     <Button
                       variant="clear"
+                      size="small"
                       onClick={() => handleUpdate(node.merchandise.id, node.quantity + 1)}
                       disabled={loading}
                     >
@@ -74,6 +75,7 @@ const Cart = () => {
                     <Box px="200">{node.quantity}</Box>
                     <Button
                       variant="clear"
+                      size="small"
                       onClick={() => handleUpdate(node.merchandise.id, node.quantity - 1)}
                       disabled={loading}
                     >
@@ -92,7 +94,7 @@ const Cart = () => {
               );
             })}
           </Box>
-          <Box py="500" display="flex" justifyContent="flex-end">
+          <Box py="500" mb="400" display="flex" justifyContent="flex-end">
             <Box fontWeight="600" pr="500">
               Estimated Total
             </Box>
