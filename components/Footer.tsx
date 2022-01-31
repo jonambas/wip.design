@@ -40,7 +40,7 @@ function Footer(): JSX.Element {
           Copyright © 2000–2022 WIP Design LLC. All Rights Reserved.
         </Box>
       </Box>
-      <Animator mb="100">
+      <Animator>
         <Box fontFamily="sans" fontSize="500" aria-hidden="true">
           Support your local art Dealer. Support your local art Dealer. Support your local
           art Dealer. Support your local art Dealer. Support your local art Dealer.

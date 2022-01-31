@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import Script from 'next/script';
 import Theme from '@sweatpants/theme';
 import { createGlobalStyle } from 'styled-components';
 import CartProvider from '@context/cart';
@@ -95,6 +96,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </CartProvider>
       </ToastProvider>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-F4NPJXF991"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-F4NPJXF991');`}
+      </Script>
     </Theme>
   );
 }

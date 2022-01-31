@@ -34,15 +34,6 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="icon" type="image/png" href="/favicon.png" />
-          {/* <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-29511296-7"
-          ></script> */}
-          {/* <script
-            dangerouslySetInnerHTML={{
-              __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-29511296-7');`,
-            }}
-          ></script> */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link

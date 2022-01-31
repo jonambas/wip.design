@@ -52,9 +52,6 @@ function ProductPage(props: ProductPageProps): JSX.Element {
               fontSize="400"
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             />
-            <Box mb="500" fontSize="400">
-              Free Shipping
-            </Box>
             {product.availableForSale && (
               <Button onClick={handleAddToCart} disabled={loading} loading={loading}>
                 Add to Cart

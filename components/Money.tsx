@@ -1,4 +1,5 @@
 import React from 'react';
+import { money } from '@utils/money';
 
 type Price = {
   amount: string;
@@ -10,7 +11,7 @@ export type MoneyProps = {
     maxVariantPrice?: Price;
     minVariantPrice?: Price;
   };
-  amount?: number;
+  amount?: string;
   currencyCode?: string;
 };
 
@@ -18,10 +19,11 @@ function Money(props: MoneyProps): JSX.Element | null {
   if (!props.priceRange) {
     const isUSD = props.currencyCode === 'USD';
     const currency = isUSD ? '$' : ''; // TODO support international?
+
     return (
       <>
         {currency}
-        {props.amount}
+        {money(props.amount)}
       </>
     );
   }
@@ -34,7 +36,7 @@ function Money(props: MoneyProps): JSX.Element | null {
     return (
       <>
         {currency}
-        {maxVariantPrice?.amount}
+        {money(maxVariantPrice?.amount)}
       </>
     );
   }

@@ -41,14 +41,7 @@ const Cart = () => {
           <Box mb="200">
             {totalItems} item{totalItems === 1 ? '' : 's'} in your cart.
           </Box>
-          <Box
-            pt="500"
-            pb="200"
-            fontWeight="600"
-            fontSize="300"
-            display="grid"
-            gridTemplateColumns="1fr 1fr 1fr"
-          >
+          <Box pt="500" pb="200" display="grid" gridTemplateColumns="1fr 1fr 1fr">
             <Box>Quantity</Box>
             <Box>Title</Box>
             <Box textAlign="right">Amount</Box>
@@ -94,9 +87,20 @@ const Cart = () => {
               );
             })}
           </Box>
-          <Box py="500" mb="400" display="flex" justifyContent="flex-end">
-            <Box fontWeight="600" pr="500">
-              Estimated Total
+          <Box
+            borderBottom="1px solid #000"
+            py="500"
+            mb="800"
+            display="grid"
+            gridTemplateColumns="1fr auto"
+            gridGap="200"
+            justifyItems="end"
+            textAlign="right"
+          >
+            <Box pr="600">Shipping</Box>
+            <Box>Free</Box>
+            <Box fontWeight="600" pr="600">
+              Subtotal
             </Box>
             <Box fontWeight="600">
               <Money {...cart.estimatedCost.totalAmount} />

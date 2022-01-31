@@ -9,7 +9,7 @@ const About = () => {
       <Layout>
         <Head>
           <title>Terms and Conditions</title>
-          <meta name="description" content="WIP Design Terms and Conditions" />
+          <meta name="description" content="WIP Design LLC Terms and Conditions" />
         </Head>
         <PageHeader>Terms & Conditions</PageHeader>
 
@@ -27,10 +27,11 @@ const About = () => {
                 Customer Satisfaction
               </Box>
               <p>
-                Our products are sold online in limited availability and quantity. We have done our
-                best to display our items as accurately as possible. We produce handmade artwork.
-                Please be aware that variations in style, color, size, shape, and look may occur. If
-                you are not satisfied with your order, please contact us for assistance.
+                Our products are sold online in limited availability and quantity. We have
+                done our best to display our items as accurately as possible. We produce
+                handmade artwork. Please be aware that variations in style, color, size,
+                shape, and look may occur. If you are not satisfied with your order,
+                please contact us for assistance.
               </p>
             </Box>
 
@@ -39,9 +40,10 @@ const About = () => {
                 Shipping
               </Box>
               <p>
-                Please allow 2-3 weeks for shipping and delivery. We ship only to the United States.
-                We are not responsible for orders that may get lost or stolen during transit or upon
-                delivery. Please contact your mail carrier to locate your package.
+                Please allow 2-3 weeks for shipping and delivery. We ship only to the
+                United States. We are not responsible for orders that may get lost or
+                stolen during transit or upon delivery. Please contact your mail carrier
+                to locate your package.
               </p>
             </Box>
 
@@ -50,8 +52,9 @@ const About = () => {
                 Returns
               </Box>
               <p>
-                All sales are final. We do not accept returns and are unable to edit your under once
-                placed.
+                All sales are final. We do not accept returns and are unable to edit your
+                under once placed. If you are not satisfied with your order, please
+                contact us for a full refund.
               </p>
             </Box>
 
@@ -60,9 +63,9 @@ const About = () => {
                 Damaged Products
               </Box>
               <p>
-                We are not responsible for damages caused during shipment. It is the responsibility
-                of the recipient of the product to file a claim with the shipping company at the
-                time the package is received.
+                We are not responsible for damages caused during shipment. It is the
+                responsibility of the recipient of the product to file a claim with the
+                shipping company at the time the package is received.
               </p>
             </Box>
           </Box>
